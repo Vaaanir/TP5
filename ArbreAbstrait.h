@@ -81,4 +81,16 @@ class NoeudInstSi : public Noeud {
     Noeud*  m_sequence;
 };
 
+class NoeudInstTantQue : public Noeud{
+    
+public : 
+    NoeudInstTantQue(Noeud* expression, Noeud* sequence);
+    ~NoeudInstTantQue(){}
+    int executer() override;
+    
+private :
+    Noeud* m_expression;
+    Noeud* m_sequence; 
+};
+
 #endif /* ARBREABSTRAIT_H */
