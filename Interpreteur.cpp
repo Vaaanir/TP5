@@ -153,7 +153,7 @@ Noeud* Interpreteur::instTantQue(){
     testerEtAvancer("(");
     Noeud* condition = expression();
     testerEtAvancer(")");
-    Noeud* sequence = seqInst();
+    Noeud *sequence = seqInst();
     testerEtAvancer("fintantque");
     return new NoeudInstTantQue(condition,sequence);
 }

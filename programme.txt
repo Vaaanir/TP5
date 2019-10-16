@@ -3,7 +3,7 @@
 procedure principale()
 
        a = 1;
-    tantque(a<3)
+    tantque(a>9)
         a = a+3;
     fintantque
 

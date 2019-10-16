@@ -88,7 +88,9 @@ NoeudInstTantQue::NoeudInstTantQue(Noeud* expression,Noeud* sequence)
 }
 
 int NoeudInstTantQue::executer() {
-    if(m_expression->executer()) m_sequence->executer();
+    while(m_expression->executer()){      
+        m_sequence->executer();
+    }   
     return 0;
 }
 

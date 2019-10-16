@@ -87,10 +87,9 @@ public :
     NoeudInstTantQue(Noeud* expression, Noeud* sequence);
     ~NoeudInstTantQue(){}
     int executer() override;
-    
 private :
     Noeud* m_expression;
-    Noeud* m_sequence; 
+    Noeud * m_sequence; 
 };
 
 ///////////////////////////////////////////////////////////
