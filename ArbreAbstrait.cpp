@@ -95,3 +95,17 @@ int NoeudInstTantQue::executer() {
 }
 
 
+
+////////////////////////////////////////////////////////////////////////////////
+// NoeudInstPour
+////////////////////////////////////////////////////////////////////////////////
+NoeudInstPour::NoeudInstPour(Noeud* affectation1, Noeud* condition, Noeud* affectation2, Noeud* sequence)
+:m_affectation1(affectation1), m_condition(condition), m_affectation2(affectation2), m_sequence(sequence){
+}
+
+int NoeudInstPour::executer(){
+    for(m_affectation1->executer();m_condition->executer();m_affectation2->executer()){
+        m_sequence->executer();
+    }
+    return 0;
+}

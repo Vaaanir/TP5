@@ -3,10 +3,12 @@
 procedure principale()
 
        a = 1;
-    tantque(a>9)
-        a = a+3;
-    fintantque
-
+#    tantque(a<9)
+#        a = a+3;
+#    fintantque
+    pour(i=0;i<10;i=i+1)
+        a = a+5;
+    finpour
 
 finproc
 # Commentaire Final
