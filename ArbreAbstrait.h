@@ -80,7 +80,7 @@ class NoeudInstSi : public Noeud {
     Noeud*  m_condition;
     Noeud*  m_sequence;
 };
-
+/////////////////////////////////////////////
 class NoeudInstTantQue : public Noeud{
     
 public : 
@@ -96,12 +96,34 @@ private :
 ////////////// //////////SiRiche/////////////////////////
 ///////////////////////////////////////////////////////////
 
-
+class NoeudInstSiRiche : public Noeud{
+    
+public : 
+    NoeudInstSiRiche(vector<Noeud *> v_conditions, vector<Noeud *> v_sequences);
+    ~NoeudInstSiRiche(){}
+    virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
+  //  virtual void ajoute(Noeud* sequence) { throw OperationInterditeException(); }
+    int executer() override;
+private :
+    vector <Noeud *>m_conditions;
+    vector <Noeud *>m_sequences;
+    //Lire les trucs, ajouter si if ou sinon dans m_instructions et m_sequences
+    //Puis lire m_instruction en même temps que m_sequences pour faire le tout en même temps
+};
 ///////////////////////////////////////////////////////////
 ////////////// //////////Repeter/////////////////////////
 ///////////////////////////////////////////////////////////
 
-
+class NoeudRepeter : public Noeud{
+    
+public : 
+    NoeudRepeter(Noeud* expression, Noeud *sequence);//Noeud* expression, Noeud* sequence);
+    ~NoeudRepeter(){}
+    int executer() override;
+private :
+    Noeud* m_expression;
+    Noeud * m_sequence; 
+};
 
 ///////////////////////////////////////////////////////////
 ////////////// //////////Pour/////////////////////////

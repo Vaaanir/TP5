@@ -56,7 +56,8 @@ Noeud* Interpreteur::seqInst() {
   NoeudSeqInst* sequence = new NoeudSeqInst();
   do {
     sequence->ajoute(inst());
-  } while (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "si" || m_lecteur.getSymbole() == "tantque");
+  } while (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "si" || m_lecteur.getSymbole() == "tantque" 
+          || m_lecteur.getSymbole() == "repeter");
   // Tant que le symbole courant est un début possible d'instruction...
   // Il faut compléter cette condition chaque fois qu'on rajoute une nouvelle instruction
   return sequence;
@@ -70,11 +71,15 @@ Noeud* Interpreteur::inst() {
     return affect;
   }
   else if (m_lecteur.getSymbole() == "si"){
-    return instSi();
+    return instSiRiche();
   }
+    
   else if(m_lecteur.getSymbole() == "tantque"){
     return instTantQue();
   }  // Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
+  else if(m_lecteur.getSymbole() == "repeter"){
+      return instRepeter();
+  }
   else {
       erreur("Instruction incorrecte");
       return nullptr;
@@ -162,13 +167,63 @@ Noeud* Interpreteur::instTantQue(){
 ///////////////////////////////////////////////////////////
 ////////////// //////////SiRiche/////////////////////////
 ///////////////////////////////////////////////////////////
+Noeud* Interpreteur::instSiRiche(){
+    vector <Noeud *> v_sequences;
+    vector <Noeud *> v_conditions;
+    //<instSiRiche> ::=si(<expression>) <seqInst> {sinonsi(<expression>) <seqInst> }[sinon <seqInst>]finsi
+    testerEtAvancer("si");
+    testerEtAvancer("(");
+    Noeud* condition = expression();
+    if(condition != nullptr){
+        v_conditions.push_back(condition);
+    }
+    testerEtAvancer(")");
+    Noeud* sequence = seqInst();
+    if(sequence != nullptr){
+        v_sequences.push_back(sequence);
+    }
+    
+    while(m_lecteur.getSymbole() == "sinonsi"){
+        testerEtAvancer("sinonsi");
+        testerEtAvancer("(");
+        Noeud* condition1 = expression();
+        if(condition1 != nullptr){
+            v_conditions.push_back(condition1);
+        }
+        testerEtAvancer(")");
+        Noeud* sequence1 = seqInst();
+        if(sequence1 != nullptr){
+            v_sequences.push_back(sequence1);
+        }  
+    }
+    if(m_lecteur.getSymbole() == "sinon"){
+        testerEtAvancer("sinon");
+        testerEtAvancer("(");
+        Noeud * sequencesinon = seqInst();
+        if(sequencesinon != nullptr){
+            v_sequences.push_back(sequencesinon);
+        }
+        testerEtAvancer(")");
+    }
 
+    testerEtAvancer("finsi");
+    return new NoeudInstSiRiche(v_conditions,v_sequences);
+}
 
 ///////////////////////////////////////////////////////////
 ////////////// //////////Repeter/////////////////////////
 ///////////////////////////////////////////////////////////
 
-
+Noeud* Interpreteur::instRepeter(){
+    //<instRepeter> ::=repeter <seqInst> jusqua( <expression> )
+    testerEtAvancer("repeter");
+    Noeud *sequence = seqInst(); 
+    testerEtAvancer("jusqua");
+    testerEtAvancer("(");
+    Noeud *condition = expression();
+    testerEtAvancer(")");
+    return new NoeudRepeter(condition,sequence);
+}
 
 ///////////////////////////////////////////////////////////
 ////////////// //////////Pour/////////////////////////

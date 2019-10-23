@@ -13,7 +13,9 @@ NoeudSeqInst::NoeudSeqInst() : m_instructions() {
 
 int NoeudSeqInst::executer() {
   for (unsigned int i = 0; i < m_instructions.size(); i++)
-    m_instructions[i]->executer(); // on exécute chaque instruction de la séquence
+    m_instructions[i]->executer(); // on exécute chif(condition1 != nullptr){
+            v_conditions.push_back(condition1);
+        }aque instruction de la séquence
   return 0; // La valeur renvoyée ne représente rien !
 }
 
@@ -39,7 +41,10 @@ int NoeudAffectation::executer() {
 // NoeudOperateurBinaire
 ////////////////////////////////////////////////////////////////////////////////
 
-NoeudOperateurBinaire::NoeudOperateurBinaire(Symbole operateur, Noeud* operandeGauche, Noeud* operandeDroit)
+NoeudOperateurBinaire::NoeudOperatNoeud* condition1 = expression();
+        if(condition1 != nullptr){
+            v_conditions.push_back(condition1);
+        }eurBinaire(Symbole operateur, Noeud* operandeGauche, Noeud* operandeDroit)
 : m_operateur(operateur), m_operandeGauche(operandeGauche), m_operandeDroit(operandeDroit) {
 }
 
@@ -94,4 +99,37 @@ int NoeudInstTantQue::executer() {
     return 0;
 }
 
+///////////////////////////////////////////////////////////
+////////////// //////////Repeter/////////////////////////
+///////////////////////////////////////////////////////////
+
+NoeudRepeter::NoeudRepeter(Noeud *expression, Noeud *sequence)
+:m_expression(expression),m_sequence(sequence){
+}
+
+int NoeudRepeter::executer(){
+        do{
+            cout<<"exec  instruction \n";
+            m_sequence->executer();
+        }while(m_expression->executer()); //m_expression->executer() == m_sequence->executer();
+        cout<<"fin";
+        return 0;
+}
+
+///////////////////////////////////////////////////////////////
+//////////////////////////////SiRiche/////////////////////////
+//////////////////////////////////////////////////////////////
+NoeudInstSiRiche::NoeudInstSiRiche(vector<Noeud *> v_conditions, vector<Noeud *> v_sequences)
+:m_conditions(v_conditions),m_sequences(v_sequences){
+    
+}
+
+int NoeudInstSiRiche::executer(){  
+    for(int i =0; i < m_conditions.size(); i++){
+        if(m_conditions[i]->executer()){
+            m_sequences[i]->executer();
+        }
+    }       
+    return 0;
+}
 

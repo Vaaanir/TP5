@@ -35,17 +35,13 @@ private:
                            //   <opBinaire> ::= + | - | *  | / | < | > | <= | >= | == | != | et | ou
     Noeud*  instSi();      //      <instSi> ::= si ( <expression> ) <seqInst> finsi
     Noeud* instTantQue(); // <instTantQue> ::= TantQue (<expression>) <seqInst> finTantQue
+    Noeud* instRepeter(); //<instRepeter> ::=repeter <seqInst> jusqua( <expression> )
     // outils pour simplifier l'analyse syntaxique
     
     ///////////////////////////////////////////////////////////
 ////////////// //////////SiRiche/////////////////////////
 ///////////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////////////
-////////////// //////////Repeter/////////////////////////
-///////////////////////////////////////////////////////////
-
+    Noeud* instSiRiche(); //<instSiRiche> ::=si(<expression>) <seqInst> {sinonsi(<expression>) <seqInst> }[sinon <seqInst>]finsi
 
 
 ///////////////////////////////////////////////////////////
