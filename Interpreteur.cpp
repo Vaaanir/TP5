@@ -56,8 +56,9 @@ Noeud* Interpreteur::seqInst() {
   NoeudSeqInst* sequence = new NoeudSeqInst();
   do {
     sequence->ajoute(inst());
+
   } while (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "si" || m_lecteur.getSymbole() == "tantque" 
-          || m_lecteur.getSymbole() == "repeter");
+          || m_lecteur.getSymbole() == "repeter" ||m_lecteur.getSymbole() == "pour");
   // Tant que le symbole courant est un début possible d'instruction...
   // Il faut compléter cette condition chaque fois qu'on rajoute une nouvelle instruction
   return sequence;
@@ -73,13 +74,15 @@ Noeud* Interpreteur::inst() {
   else if (m_lecteur.getSymbole() == "si"){
     return instSiRiche();
   }
-    
   else if(m_lecteur.getSymbole() == "tantque"){
-    return instTantQue();
+   return instTantQue();
   }  // Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
   else if(m_lecteur.getSymbole() == "repeter"){
       return instRepeter();
-  }
+  }  
+  else if(m_lecteur.getSymbole() == "pour"){
+      return instPour();
+  }// Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
   else {
       erreur("Instruction incorrecte");
       return nullptr;
@@ -206,9 +209,13 @@ Noeud* Interpreteur::instSiRiche(){
         testerEtAvancer(")");
     }
 
+
     testerEtAvancer("finsi");
     return new NoeudInstSiRiche(v_conditions,v_sequences);
 }
+
+
+    
 
 ///////////////////////////////////////////////////////////
 ////////////// //////////Repeter/////////////////////////
@@ -228,9 +235,21 @@ Noeud* Interpreteur::instRepeter(){
 ///////////////////////////////////////////////////////////
 ////////////// //////////Pour/////////////////////////
 ///////////////////////////////////////////////////////////
+//<instPour> ::= pour( [ <affectation> ] ; <expression> ;[ <affectation> ]) <seqInst> finpour
+ Noeud* Interpreteur::instPour(){
+     testerEtAvancer("pour");
+     testerEtAvancer("(");
+     Noeud* affectation = affectation();
+     if(affectation){
+         testerEtAvancer(";");
+     }
+     //si on n'a pas d'affectation alors
+     Noeud * expression = expression();
+     return new NoeudInstPour(affectation,condition,affectation2,sequence);
+ }
 
-
-
+     
+ 
 ///////////////////////////////////////////////////////////
 ////////////// //////////Ecrire/////////////////////////
 ///////////////////////////////////////////////////////////

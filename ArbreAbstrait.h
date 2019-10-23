@@ -128,7 +128,17 @@ private :
 ///////////////////////////////////////////////////////////
 ////////////// //////////Pour/////////////////////////
 ///////////////////////////////////////////////////////////
-
+class NoeudInstPour : public Noeud{
+public:
+    NoeudInstPour(Noeud* affectation1, Noeud* condition, Noeud* affectation2, Noeud* sequence);
+    ~NoeudInstPour(){}
+    int executer() override;
+private:
+    Noeud* m_condition;
+    Noeud* m_sequence;
+    Noeud* m_affectation1;
+    Noeud* m_affectation2;
+};
 
 
 ///////////////////////////////////////////////////////////

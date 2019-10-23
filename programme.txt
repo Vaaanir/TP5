@@ -8,14 +8,21 @@ procedure principale()
    # a = a+3;
    # jusqua(a > 10)
 
-    a = 155;
-    si(a == 0)
-        a = 3;
-sinonsi(a ==2)
-    a = 15;
-sinonsi(a == 12)
- a = 20;
-sinon(a = 1000;)
-finsi
+  #  a = 155;
+   # si(a == 0)
+   #     a = 3;
+#sinonsi(a ==2)
+ #   a = 15;
+#sinonsi(a == 12)
+ #a = 20;
+#sinon(a = 1000;)
+#finsi
+
+
+b = 0;
+i =0;
+pour(i < 10)
+    b = b+1;
+finpour
 finproc
 # Commentaire Final

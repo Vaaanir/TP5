@@ -13,9 +13,7 @@ NoeudSeqInst::NoeudSeqInst() : m_instructions() {
 
 int NoeudSeqInst::executer() {
   for (unsigned int i = 0; i < m_instructions.size(); i++)
-    m_instructions[i]->executer(); // on exécute chif(condition1 != nullptr){
-            v_conditions.push_back(condition1);
-        }aque instruction de la séquence
+    m_instructions[i]->executer();    
   return 0; // La valeur renvoyée ne représente rien !
 }
 
@@ -41,11 +39,8 @@ int NoeudAffectation::executer() {
 // NoeudOperateurBinaire
 ////////////////////////////////////////////////////////////////////////////////
 
-NoeudOperateurBinaire::NoeudOperatNoeud* condition1 = expression();
-        if(condition1 != nullptr){
-            v_conditions.push_back(condition1);
-        }eurBinaire(Symbole operateur, Noeud* operandeGauche, Noeud* operandeDroit)
-: m_operateur(operateur), m_operandeGauche(operandeGauche), m_operandeDroit(operandeDroit) {
+NoeudOperateurBinaire::NoeudOperateurBinaire(Symbole operateur, Noeud* operandeGauche, Noeud* operandeDroit)
+:m_operateur(operateur), m_operandeGauche(operandeGauche), m_operandeDroit(operandeDroit) {
 }
 
 int NoeudOperateurBinaire::executer() {
@@ -133,3 +128,17 @@ int NoeudInstSiRiche::executer(){
     return 0;
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+// NoeudInstPour
+////////////////////////////////////////////////////////////////////////////////
+NoeudInstPour::NoeudInstPour(Noeud* affectation1, Noeud* condition, Noeud* affectation2, Noeud* sequence)
+:m_affectation1(affectation1), m_condition(condition), m_affectation2(affectation2), m_sequence(sequence){
+}
+
+int NoeudInstPour::executer(){
+    for(m_affectation1->executer();m_condition->executer();m_affectation2->executer()){
+        m_sequence->executer();
+    }
+    return 0;
+}
