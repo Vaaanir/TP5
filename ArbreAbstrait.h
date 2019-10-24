@@ -114,11 +114,11 @@ private :
 ////////////// //////////Repeter/////////////////////////
 ///////////////////////////////////////////////////////////
 
-class NoeudRepeter : public Noeud{
+class NoeudInstRepeter : public Noeud{
     
 public : 
-    NoeudRepeter(Noeud* expression, Noeud *sequence);//Noeud* expression, Noeud* sequence);
-    ~NoeudRepeter(){}
+    NoeudInstRepeter(Noeud* expression, Noeud *sequence);//Noeud* expression, Noeud* sequence);
+    ~NoeudInstRepeter(){}
     int executer() override;
 private :
     Noeud* m_expression;

@@ -98,11 +98,11 @@ int NoeudInstTantQue::executer() {
 ////////////// //////////Repeter/////////////////////////
 ///////////////////////////////////////////////////////////
 
-NoeudRepeter::NoeudRepeter(Noeud *expression, Noeud *sequence)
+NoeudInstRepeter::NoeudInstRepeter(Noeud *expression, Noeud *sequence)
 :m_expression(expression),m_sequence(sequence){
 }
 
-int NoeudRepeter::executer(){
+int NoeudInstRepeter::executer(){
         do{
             cout<<"exec  instruction \n";
             m_sequence->executer();

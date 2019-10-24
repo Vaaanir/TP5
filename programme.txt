@@ -3,10 +3,10 @@
 procedure principale()
 
     
-  # a = 0;
-   # repeter 
-   # a = a+3;
-   # jusqua(a > 10)
+  a = 10;
+  repeter 
+  a = a+1;
+  jusqua(a < 9)
 
   #  a = 155;
    # si(a == 0)
@@ -26,7 +26,7 @@ procedure principale()
 #    b = b+1;
 #finpour
 
-lire();
+#lire(a);
 
 finproc
 # Commentaire Final
