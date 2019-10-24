@@ -56,7 +56,7 @@ Noeud* Interpreteur::seqInst() {
   NoeudSeqInst* sequence = new NoeudSeqInst();
   do {
     sequence->ajoute(inst());
-  } while (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "si" || m_lecteur.getSymbole() == "tantque" || m_lecteur.getSymbole() == "pour");
+  } while (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "si" || m_lecteur.getSymbole() == "tantque" || m_lecteur.getSymbole() == "pour" || m_lecteur.getSymbole() == "ecrire");
   // Tant que le symbole courant est un début possible d'instruction...
   // Il faut compléter cette condition chaque fois qu'on rajoute une nouvelle instruction
   return sequence;
@@ -77,6 +77,9 @@ Noeud* Interpreteur::inst() {
   }  
   else if(m_lecteur.getSymbole() == "pour"){
       return instPour();
+  }
+  else if (m_lecteur.getSymbole() == "ecrire"){
+      return instEcrire();
   }// Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
   else {
       erreur("Instruction incorrecte");
@@ -115,7 +118,7 @@ Noeud* Interpreteur::expression() {
 Noeud* Interpreteur::facteur() {
   // <facteur> ::= <entier> | <variable> | - <facteur> | non <facteur> | ( <expression> )
   Noeud* fact = nullptr;
-  if (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "<ENTIER>") {
+  if (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "<ENTIER>" || m_lecteur.getSymbole() == "<CHAINE>") {
     fact = m_table.chercheAjoute(m_lecteur.getSymbole()); // on ajoute la variable ou l'entier à la table
     m_lecteur.avancer();
   } else if (m_lecteur.getSymbole() == "-") { // - <facteur>
@@ -196,7 +199,21 @@ Noeud* Interpreteur::instTantQue(){
 ///////////////////////////////////////////////////////////
 ////////////// //////////Ecrire/////////////////////////
 ///////////////////////////////////////////////////////////
-
+// <instEcrire>  ::=ecrire( <expression> | <chaine> {, <expression> | <chaine> })
+ Noeud* Interpreteur::instEcrire(){
+     vector<Noeud*> exp;
+     testerEtAvancer("ecrire");
+     testerEtAvancer("(");
+     Noeud* condition = expression();
+     exp.push_back(condition);
+     while(m_lecteur.getSymbole() == ","){
+        testerEtAvancer(",");
+        Noeud* condition1 = expression();
+        exp.push_back(condition1);
+     }
+     testerEtAvancer(")");
+     return new NoeudInstEcrire(exp);
+ }
 
 ///////////////////////////////////////////////////////////
 ////////////// //////////Lire/////////////////////////

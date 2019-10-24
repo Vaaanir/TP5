@@ -10,5 +10,7 @@ procedure principale()
         a = a+5;
     finpour
 
+    ecrire("a=",a,4,7)
+
 finproc
 # Commentaire Final

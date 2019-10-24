@@ -109,3 +109,23 @@ int NoeudInstPour::executer(){
     }
     return 0;
 }
+
+
+////////////////////////////////////////////////////////////////////////////////
+// NoeudInstEcrire
+////////////////////////////////////////////////////////////////////////////////
+NoeudInstEcrire::NoeudInstEcrire(vector<Noeud*> exp)
+:m_exp(exp){}
+
+int NoeudInstEcrire::executer(){
+  for (unsigned int i = 0; i < m_exp.size(); i++){
+      if((typeid(*m_exp[i])==typeid(SymboleValue) && *((SymboleValue*)m_exp[i])== "<CHAINE>" )){
+          string Chaine = ((SymboleValue*)m_exp[i])->getChaine();
+          Chaine.erase(0,1);
+          Chaine.pop_back();
+          cout << Chaine;
+      }else{
+      cout << m_exp[i]->executer() << endl;
+      }
+  }
+}
