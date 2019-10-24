@@ -132,13 +132,45 @@ int NoeudInstSiRiche::executer(){
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstPour
 ////////////////////////////////////////////////////////////////////////////////
-NoeudInstPour::NoeudInstPour(Noeud* affectation1, Noeud* condition, Noeud* affectation2, Noeud* sequence)
-:m_affectation1(affectation1), m_condition(condition), m_affectation2(affectation2), m_sequence(sequence){
+NoeudInstPour::NoeudInstPour(Noeud* affectationGauche, Noeud* condition, Noeud* affectationDroite, Noeud* sequence)
+:m_affectationGauche(affectationDroite), m_condition(condition), m_affectationDroite(affectationDroite), m_sequence(sequence){
 }
 
 int NoeudInstPour::executer(){
-    for(m_affectation1->executer();m_condition->executer();m_affectation2->executer()){
-        m_sequence->executer();
+    //Si les nous n'avons pas les affectations(i =0 et i = i+1) alors
+   //on "affecte" les affection puis celle-ci seront exécutée.
+    if(m_affectationGauche != NULL && m_affectationDroite != NULL){
+        m_affectationGauche->executer();
+        m_affectationDroite->executer();
+        if(m_condition->executer()){
+            while(m_condition->executer()){
+                m_sequence->executer();             
+            }
+        }  
+         //Si les nous n'avons pas les affectations(i =0 et i = i+1) alors
+        //on execute l'instruction tant que la condition est vraie
+    }else if(m_affectationGauche == NULL && m_affectationDroite == NULL){
+        if(m_condition->executer())
+            while(m_condition->executer()){
+                m_sequence->executer();
+            }
+    }
+    return 0;
+}
+
+////////////////////////////////////////////////////////
+///////////////////LIRE/////////////////////////////////
+////////////////////////////////////////////////////////
+NoeudInstLire::NoeudInstLire(vector <Noeud*> instructions): v_instructions(instructions){}
+
+int NoeudInstLire::executer(){
+    for(auto inst : v_instructions){
+        cout<<"Entrez la valeur de : ";
+        cout<<((SymboleValue*)inst)->getChaine();
+        cout<<"\n";
+        long nombreAEntrer;
+        cin>>nombreAEntrer;
+        ((SymboleValue*)inst)->setValeur(nombreAEntrer);
     }
     return 0;
 }

@@ -68,6 +68,10 @@ private:
 ///////////////////////////////////////////////////////////
 ////////////// //////////Lire/////////////////////////
 ///////////////////////////////////////////////////////////
+    
+    Noeud * instLire();
+    
+////////////////////////////////////////////////////////
     void tester (const string & symboleAttendu) const;   // Si symbole courant != symboleAttendu, on lève une exception
     void testerEtAvancer(const string & symboleAttendu); // Si symbole courant != symboleAttendu, on lève une exception, sinon on avance
     void erreur (const string & mess) const;             // Lève une exception "contenant" le message mess

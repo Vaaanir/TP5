@@ -19,10 +19,14 @@ procedure principale()
 #finsi
 
 
-b = 0;
-i =0;
-pour(i < 10)
-    b = b+1;
-finpour
+#b = 1;
+#i = 1;
+#pour(i = 0;i<5;i =i+1;)
+#    i = i+1;
+#    b = b+1;
+#finpour
+
+lire();
+
 finproc
 # Commentaire Final

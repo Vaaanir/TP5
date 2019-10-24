@@ -130,14 +130,14 @@ private :
 ///////////////////////////////////////////////////////////
 class NoeudInstPour : public Noeud{
 public:
-    NoeudInstPour(Noeud* affectation1, Noeud* condition, Noeud* affectation2, Noeud* sequence);
+    NoeudInstPour(Noeud* affectationGauche, Noeud* condition, Noeud* affectationDroite, Noeud* sequence);
     ~NoeudInstPour(){}
     int executer() override;
 private:
     Noeud* m_condition;
     Noeud* m_sequence;
-    Noeud* m_affectation1;
-    Noeud* m_affectation2;
+    Noeud* m_affectationGauche;
+    Noeud* m_affectationDroite;
 };
 
 
@@ -149,4 +149,13 @@ private:
 ///////////////////////////////////////////////////////////
 ////////////// //////////Lire/////////////////////////
 ///////////////////////////////////////////////////////////
+class NoeudInstLire : public Noeud{
+public :
+    NoeudInstLire(vector <Noeud *> instructions);
+    ~NoeudInstLire(){};
+    int executer() override;
+    
+private :
+    vector <Noeud*> v_instructions;
+};
 #endif /* ARBREABSTRAIT_H */
