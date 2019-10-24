@@ -3,11 +3,20 @@
 procedure principale()
 
     
-  a = 10;
-  repeter 
-  a = a+1;
-  jusqua(a < 9)
+  #a = 10;
+  #repeter 
+  #a = a+1;
+  #jusqua(a < 9)
+a = 1;
+tantque(a < 10)
+    a = a +1;
+fintantque
 
+
+#a = 5;
+#si(a ==5)
+#a = 500;
+#finsi
   #  a = 155;
    # si(a == 0)
    #     a = 3;

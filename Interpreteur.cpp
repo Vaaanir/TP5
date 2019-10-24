@@ -154,6 +154,14 @@ Noeud* Interpreteur::instSi() {
   return new NoeudInstSi(condition, sequence); // Et on renvoie un noeud Instruction Si
 }
 
+void Interpreteur::traduitEnCPP(ostream &cout, unsigned int indentation) const{
+    cout<< setw(4*indentation) << "" << "int main(){" << endl;
+    /////////////////////////////////////////////////////////
+ 
+    getArbre()->traduitEnCPP(cout,indentation+1);
+    cout << setw(4*(indentation+1)) << "" << "return 0;" << endl;
+    cout << setw(4*indentation) << "}" <<endl;
+}
 ///////////////////////////////////////////////////////////
 ////////////// //////////TANT QUE /////////////////////////
 ///////////////////////////////////////////////////////////

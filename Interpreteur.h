@@ -16,7 +16,7 @@ public:
 	                                    //   cette méthode se termine normalement et affiche un message "Syntaxe correcte".
                                       //   la table des symboles (ts) et l'arbre abstrait (arbre) auront été construits
 	                                    // Sinon, une exception sera levée
-
+        void traduitEnCPP(ostream &cout, unsigned int indentation) const;
 	inline const TableSymboles & getTable () const  { return m_table;    } // accesseur	
 	inline Noeud* getArbre () const { return m_arbre; }                    // accesseur
 	
@@ -43,7 +43,7 @@ private:
 ///////////////////////////////////////////////////////////
 
     Noeud* instSiRiche(); //<instSiRiche> ::=si(<expression>) <seqInst> {sinonsi(<expression>) <seqInst> }[sinon <seqInst>]finsi
-
+    
 
     
 ///////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ private:
 
 
   Noeud* instRepeter(); //<instRepeter> ::=repeter <seqInst> jusqua( <expression> )
-
+  
 ///////////////////////////////////////////////////////////
 ////////////// //////////Pour/////////////////////////
 ///////////////////////////////////////////////////////////
