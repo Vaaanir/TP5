@@ -16,7 +16,7 @@ public:
 	                                    //   cette méthode se termine normalement et affiche un message "Syntaxe correcte".
                                       //   la table des symboles (ts) et l'arbre abstrait (arbre) auront été construits
 	                                    // Sinon, une exception sera levée
-
+        void traduitEnCPP(ostream &cout, unsigned int indentation) const;
 	inline const TableSymboles & getTable () const  { return m_table;    } // accesseur	
 	inline Noeud* getArbre () const { return m_arbre; }                    // accesseur
 	
@@ -35,11 +35,15 @@ private:
                            //   <opBinaire> ::= + | - | *  | / | < | > | <= | >= | == | != | et | ou
     Noeud*  instSi();      //      <instSi> ::= si ( <expression> ) <seqInst> finsi
     Noeud* instTantQue(); // <instTantQue> ::= TantQue (<expression>) <seqInst> finTantQue
+  
     // outils pour simplifier l'analyse syntaxique
     
     ///////////////////////////////////////////////////////////
 ////////////// //////////SiRiche/////////////////////////
 ///////////////////////////////////////////////////////////
+
+    Noeud* instSiRiche(); //<instSiRiche> ::=si(<expression>) <seqInst> {sinonsi(<expression>) <seqInst> }[sinon <seqInst>]finsi
+    
 
     
 ///////////////////////////////////////////////////////////
@@ -47,7 +51,8 @@ private:
 ///////////////////////////////////////////////////////////
 
 
-
+  Noeud* instRepeter(); //<instRepeter> ::=repeter <seqInst> jusqua( <expression> )
+  
 ///////////////////////////////////////////////////////////
 ////////////// //////////Pour/////////////////////////
 ///////////////////////////////////////////////////////////
@@ -63,6 +68,10 @@ private:
 ///////////////////////////////////////////////////////////
 ////////////// //////////Lire/////////////////////////
 ///////////////////////////////////////////////////////////
+    
+    Noeud * instLire();
+    
+////////////////////////////////////////////////////////
     void tester (const string & symboleAttendu) const;   // Si symbole courant != symboleAttendu, on lève une exception
     void testerEtAvancer(const string & symboleAttendu); // Si symbole courant != symboleAttendu, on lève une exception, sinon on avance
     void erreur (const string & mess) const;             // Lève une exception "contenant" le message mess
