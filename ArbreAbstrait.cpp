@@ -124,7 +124,7 @@ int NoeudInstTantQue::executer() {
 
 void NoeudInstTantQue::traduitEnCPP(ostream &cout, unsigned int indentation) const {
     cout<<setw(4*indentation) << ""<<"while (";
-    m_expression->traduitEnCPP(cout,indentation);
+    m_expression->traduitEnCPP(cout,0);
     cout<<"){"<<endl;
         m_sequence->traduitEnCPP(cout,indentation+1);
         cout<<setw(indentation*4)<<""<< "}" << endl;
@@ -157,8 +157,8 @@ void NoeudInstRepeter::traduitEnCPP(ostream &cout, unsigned int indentation) con
 ///////////////////////////////////////////////////////////////
 //////////////////////////////SiRiche/////////////////////////
 //////////////////////////////////////////////////////////////
-NoeudInstSiRiche::NoeudInstSiRiche(vector<Noeud *> v_conditions, vector<Noeud *> v_sequences)
-:m_conditions(v_conditions),m_sequences(v_sequences){
+NoeudInstSiRiche::NoeudInstSiRiche(vector<Noeud *> v_conditions, vector<Noeud *> v_sequences, vector<Noeud *> v_sequencesinon)
+:m_conditions(v_conditions),m_sequences(v_sequences),m_sequencesinon(v_sequencesinon){
     
 }
 
@@ -166,39 +166,45 @@ int NoeudInstSiRiche::executer(){
     for(int i =0; i < m_conditions.size(); i++){
         if(m_conditions[i]->executer()){
             m_sequences[i]->executer();
+            break;
+        }else if((i == m_conditions.size()-1) && (!m_sequencesinon.empty())){
+            m_sequencesinon[0]->executer();
         }
     }       
     return 0;
 }
 void NoeudInstSiRiche::traduitEnCPP(ostream &cout, unsigned int indentation) const{
     cout<<setw(4*indentation)<<""<<"if (";
-    for(int i =0; m_conditions.size();i++){
+    for(int i =0; i < m_sequences.size()+m_sequencesinon.size();i++){
         if(i !=0){
-            if(i = m_conditions.size()){
-                cout<<setw(4*indentation)<<""<<"else(";
-            }else {
-                 cout<<setw(4*indentation)<<""<<"else if(";
+            if(i<m_sequences.size()) {
+                cout<<setw(4*indentation)<<""<<"else if(";
+                m_conditions[i]->traduitEnCPP(cout,0);
+                cout<<") {" <<endl;
+                m_sequences[i]->traduitEnCPP(cout,indentation+1);
+            }else{
+                cout<<setw(4*indentation)<<""<<"else{" << endl;
+                m_sequencesinon[0]->traduitEnCPP(cout,indentation+1);                
             }
+        }else{
+            m_conditions[i]->traduitEnCPP(cout,0);
+            cout<<") {" <<endl;
+            m_sequences[i]->traduitEnCPP(cout,indentation+1);          
         }
-        m_conditions[i]->traduitEnCPP(cout,indentation);
-        cout<<") {" <<endl;
-            m_sequences[i]->traduitEnCPP(cout,indentation);
-        cout<<"}" <<endl;
-    cout<<"}" <<endl;
-    }
-    
+        cout<< setw(4*indentation) << "" << "}" <<endl;
+    } 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstPour
 ////////////////////////////////////////////////////////////////////////////////
 NoeudInstPour::NoeudInstPour(Noeud* affectationGauche, Noeud* condition, Noeud* affectationDroite, Noeud* sequence)
-:m_affectationGauche(affectationDroite), m_condition(condition), m_affectationDroite(affectationDroite), m_sequence(sequence){
+:m_affectationGauche(affectationGauche), m_condition(condition), m_affectationDroite(affectationDroite), m_sequence(sequence){
 }
 
 int NoeudInstPour::executer(){
-    //Si les nous n'avons pas les affectations(i =0 et i = i+1) alors
-   //on "affecte" les affection puis celle-ci seront exécutée.
+    //Si nous n'avons pas les affectations(i =0 et i = i+1) alors
+   //on "affecte" les affections puis elles seront exécutées.
     if(m_affectationGauche != NULL && m_affectationDroite != NULL){
         m_affectationGauche->executer();
         m_affectationDroite->executer();
@@ -207,7 +213,7 @@ int NoeudInstPour::executer(){
                 m_sequence->executer();             
             }
         }  
-         //Si les nous n'avons pas les affectations(i =0 et i = i+1) alors
+         //Si nous n'avons pas les affectations(i =0 et i = i+1) alors
         //on execute l'instruction tant que la condition est vraie
     }else if(m_affectationGauche == NULL && m_affectationDroite == NULL){
         if(m_condition->executer())
@@ -218,6 +224,7 @@ int NoeudInstPour::executer(){
     return 0;
 }
 void NoeudInstPour::traduitEnCPP(ostream &cout, unsigned int indentation) const{
+    cout << setw(4*indentation) << "" << "for("; // Ecrit "for(" avec un décalage de 4*indentation espaces
     
 }
 

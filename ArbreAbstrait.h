@@ -102,7 +102,7 @@ private :
 class NoeudInstSiRiche : public Noeud{
     
 public : 
-    NoeudInstSiRiche(vector<Noeud *> v_conditions, vector<Noeud *> v_sequences);
+    NoeudInstSiRiche(vector<Noeud *> v_conditions, vector<Noeud *> v_sequences, vector<Noeud *> v_sequencesinon);
     ~NoeudInstSiRiche(){}
     virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
     void traduitEnCPP(ostream &cout, unsigned int indentation) const override;
@@ -110,6 +110,7 @@ public :
 private :
     vector <Noeud *>m_conditions;
     vector <Noeud *>m_sequences;
+    vector <Noeud *> m_sequencesinon;
     //Lire les trucs, ajouter si if ou sinon dans m_instructions et m_sequences
     //Puis lire m_instruction en même temps que m_sequences pour faire le tout en même temps
 };

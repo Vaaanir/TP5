@@ -8,36 +8,40 @@ procedure principale()
   #a = a+1;
   #jusqua(a < 9)
 a = 1;
-tantque(a < 10)
-    a = a +1;
-fintantque
+#tantque(a < 10)
+#    a = a +1;
+#fintantque
 
 
-#a = 5;
-#si(a ==5)
-#a = 500;
-#finsi
-  #  a = 155;
-   # si(a == 0)
-   #     a = 3;
-#sinonsi(a ==2)
- #   a = 15;
-#sinonsi(a == 12)
- #a = 20;
-#sinon(a = 1000;)
+#    b = 5;
+#    si(b == 4)
+#        b = 500;
+#sinon(b=97;)
 #finsi
 
+#    a = 145;
+#    si(a == 15)
+#        a = 3;
+#sinonsi(a==14)
+#a = 7;
+#sinonsi(a==1)
+#a=94;
+#sinon(a=14;)
+#finsi
 
-#b = 1;
-#i = 1;
-#pour(i = 0;i<5;i =i+1;)
-#    i = i+1;
-#    b = b+1;
-#finpour
+
+b = 1;
+i = 1;
+pour(i=3;i<5;i=i+1;)
+    b = b+1;
+    i = i+1;
+finpour
 
 #lire(a);
 
-    ecrire("a=",a,4,7)
+#    ecrire("b=",b)
+#    ecrire("a=",a,4,7)
+
 
 finproc
 # Commentaire Final

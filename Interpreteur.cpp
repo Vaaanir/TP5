@@ -161,7 +161,7 @@ Noeud* Interpreteur::instSi() {
 void Interpreteur::traduitEnCPP(ostream &cout, unsigned int indentation) const{
     cout<< setw(4*indentation) << "" << "int main(){" << endl;
     /////////////////////////////////////////////////////////
- 
+
     getArbre()->traduitEnCPP(cout,indentation+1);
     cout << setw(4*(indentation+1)) << "" << "return 0;" << endl;
     cout << setw(4*indentation) << "}" <<endl;
@@ -188,6 +188,7 @@ Noeud* Interpreteur::instTantQue(){
 Noeud* Interpreteur::instSiRiche(){
     vector <Noeud *> v_sequences;
     vector <Noeud *> v_conditions;
+    vector <Noeud *> v_sequencesinon;
     //<instSiRiche> ::=si(<expression>) <seqInst> {sinonsi(<expression>) <seqInst> }[sinon <seqInst>]finsi
     testerEtAvancer("si");
     testerEtAvancer("(");
@@ -217,16 +218,16 @@ Noeud* Interpreteur::instSiRiche(){
     if(m_lecteur.getSymbole() == "sinon"){
         testerEtAvancer("sinon");
         testerEtAvancer("(");
-        Noeud * sequencesinon = seqInst();
-        if(sequencesinon != nullptr){
-            v_sequences.push_back(sequencesinon);
+        Noeud * sinon = seqInst();
+        if(sinon != nullptr){
+            v_sequencesinon.push_back(sinon);
         }
         testerEtAvancer(")");
     }
 
 
     testerEtAvancer("finsi");
-    return new NoeudInstSiRiche(v_conditions,v_sequences);
+    return new NoeudInstSiRiche(v_conditions,v_sequences,v_sequencesinon);
 }
 
 
