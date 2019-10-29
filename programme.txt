@@ -7,17 +7,17 @@ procedure principale()
   #repeter 
   #a = a+1;
   #jusqua(a < 9)
-a = 1;
+#a = 1;
 #tantque(a < 10)
 #    a = a +1;
 #fintantque
 
 
-#    b = 5;
-#    si(b == 4)
-#        b = 500;
-#sinon(b=97;)
-#finsi
+    b = 5;
+    si(b == 4)
+        b = 500;
+sinon(b=97;)
+finsi
 
 #    a = 145;
 #    si(a == 15)
@@ -30,16 +30,16 @@ a = 1;
 #finsi
 
 
-b = 1;
-i = 1;
-pour(i=3;i<5;i=i+1;)
-    b = b+1;
-    i = i+1;
-finpour
+#b = 1;
+#i = 1;
+#pour(i=1;i<5;i=i+1;)
+#    b = b+1;
+#    i = i+1;
+#finpour
 
 #lire(a);
 
-#    ecrire("b=",b)
+    ecrire("b=",b,4)
 #    ecrire("a=",a,4,7)
 
 

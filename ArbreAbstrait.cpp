@@ -149,10 +149,10 @@ int NoeudInstRepeter::executer(){
 }
 void NoeudInstRepeter::traduitEnCPP(ostream &cout, unsigned int indentation) const{
     cout<<setw(4*indentation) <<""<<"do {" << endl;
-    m_sequence->traduitEnCPP(cout,indentation);
-    cout<<"} while (";
-    m_expression->traduitEnCPP(cout,indentation);
-    cout<<setw(indentation*4)<<""<<")" <<endl;
+    m_sequence->traduitEnCPP(cout,indentation+1);
+    cout<<setw(4*indentation) <<""<<"} while (";
+    m_expression->traduitEnCPP(cout,0);
+    cout<<");"<<endl;
 }
 ///////////////////////////////////////////////////////////////
 //////////////////////////////SiRiche/////////////////////////
@@ -231,8 +231,8 @@ void NoeudInstPour::traduitEnCPP(ostream &cout, unsigned int indentation) const{
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstEcrire
 ////////////////////////////////////////////////////////////////////////////////
-NoeudInstEcrire::NoeudInstEcrire(vector<Noeud*> exp)
-:m_exp(exp){}
+NoeudInstEcrire::NoeudInstEcrire(vector<Noeud*> v_exp)
+:m_exp(v_exp){}
 
 int NoeudInstEcrire::executer(){
   for (unsigned int i = 0; i < m_exp.size(); i++){
@@ -245,6 +245,20 @@ int NoeudInstEcrire::executer(){
       cout << m_exp[i]->executer() << endl;
       }
   }
+}
+
+void NoeudInstEcrire::traduitEnCPP(ostream& cout, unsigned int indentation) const{
+    cout << setw(4*indentation) << "" << "cout";
+    for(unsigned int i=0;i<m_exp.size();i++){
+        cout << " << ";
+        if((typeid(*m_exp[i])==typeid(SymboleValue) && *((SymboleValue*)m_exp[i])== "<CHAINE>" )){
+            string Chaine = ((SymboleValue*)m_exp[i])->getChaine();
+            cout << Chaine;
+        }else{
+            cout << ((SymboleValue*)m_exp[i])->getChaine();
+        }
+    }
+    cout << ";" << endl;
 }
 
 ////////////////////////////////////////////////////////

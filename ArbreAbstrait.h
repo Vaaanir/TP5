@@ -155,6 +155,7 @@ public:
     NoeudInstEcrire(vector<Noeud*> exp);
     ~NoeudInstEcrire(){}
     int executer() override;
+    void traduitEnCPP(ostream &cout, unsigned int indentation) const override;
 private:
     vector<Noeud*> m_exp;
 };

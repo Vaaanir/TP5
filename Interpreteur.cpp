@@ -286,18 +286,18 @@ Noeud* Interpreteur::instRepeter(){
 ///////////////////////////////////////////////////////////
 // <instEcrire>  ::=ecrire( <expression> | <chaine> {, <expression> | <chaine> })
  Noeud* Interpreteur::instEcrire(){
-     vector<Noeud*> exp;
+     vector<Noeud*> v_exp;
      testerEtAvancer("ecrire");
      testerEtAvancer("(");
      Noeud* condition = expression();
-     exp.push_back(condition);
+     v_exp.push_back(condition);
      while(m_lecteur.getSymbole() == ","){
         testerEtAvancer(",");
         Noeud* condition1 = expression();
-        exp.push_back(condition1);
+        v_exp.push_back(condition1);
      }
      testerEtAvancer(")");
-     return new NoeudInstEcrire(exp);
+     return new NoeudInstEcrire(v_exp);
  }
 
 ///////////////////////////////////////////////////////////
