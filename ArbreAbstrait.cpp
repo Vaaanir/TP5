@@ -278,5 +278,8 @@ int NoeudInstLire::executer(){
     return 0;
 }
 void NoeudInstLire::traduitEnCPP(ostream &cout, unsigned int indentation) const{
-    
+    for(auto inst : v_instructions){
+        cout << setw(4*indentation) << "" << "cin >> ";
+        cout << ((SymboleValue*)inst)->getChaine() << ";" << endl;
+    }
 }

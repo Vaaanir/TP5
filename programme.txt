@@ -37,10 +37,12 @@ finsi
 #    i = i+1;
 #finpour
 
-#lire(a);
+lire(a,c,d);
 
     ecrire("b=",b,4)
-#    ecrire("a=",a,4,7)
+    ecrire("a=",a)
+    ecrire("c=",c)
+    ecrire("d=",d)
 
 
 finproc
