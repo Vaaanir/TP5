@@ -1,0 +1,15 @@
+# Test du tantque
+# Résultat attendu :
+# test1 = 11
+# test2 = 12
+procedure principale()
+    test1 = 1;
+    tantque(test1 < 10)
+        test1 = test1 + 5;
+    fintantque
+
+    test2 = 12;
+    tantque(test2 > 15)
+        test2 = test2 - 2;
+    fintantque
+finproc

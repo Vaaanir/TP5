@@ -1,0 +1,15 @@
+# Test du repeter
+# Résultat attendu :
+# test1 = 10
+# test2 = 12
+procedure principale()
+    test1 = 4;
+    repeter 
+        test1 = test1 + 2;
+    jusqua(test1 < 10)
+
+    test2 = 10;
+    repeter 
+        test2 = test2 + 2;
+    jusqua(test2 < 10)
+finproc

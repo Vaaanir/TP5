@@ -1,0 +1,10 @@
+# Test du ecrire
+# Résultat attendu :
+# Hello World !455
+# a=10
+procedure principale()
+    ecrire("Hello World !",4,5,5)
+    
+    a = 10;
+    ecrire("a=",a)
+finproc

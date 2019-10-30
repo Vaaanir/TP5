@@ -15,6 +15,12 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>TestEcrire.txt</itemPath>
+      <itemPath>TestLire.txt</itemPath>
+      <itemPath>TestPour.txt</itemPath>
+      <itemPath>TestRepeter.txt</itemPath>
+      <itemPath>TestSiRiche.txt</itemPath>
+      <itemPath>TestTantQue.txt</itemPath>
       <itemPath>motsCles.txt</itemPath>
       <itemPath>programme.txt</itemPath>
     </logicalFolder>
@@ -86,6 +92,18 @@
       </item>
       <item path="TableSymboles.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="TestEcrire.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestLire.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestPour.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestRepeter.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestSiRiche.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestTantQue.txt" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -155,6 +173,18 @@
       <item path="TableSymboles.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TableSymboles.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestEcrire.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestLire.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestPour.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestRepeter.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestSiRiche.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestTantQue.txt" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>

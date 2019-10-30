@@ -240,9 +240,17 @@ int NoeudInstEcrire::executer(){
           string Chaine = ((SymboleValue*)m_exp[i])->getChaine();
           Chaine.erase(0,1);
           Chaine.pop_back();
-          cout << Chaine;
+          if(i==m_exp.size()-1){        // Pour le cas où l'on souhaite ecrire un string en dernier, on met un retour à la ligne
+            cout << Chaine << endl;
+          }else{
+              cout << Chaine;
+          }
       }else{
-      cout << m_exp[i]->executer() << endl;
+          if(i==m_exp.size()-1){
+            cout << m_exp[i]->executer() << endl;
+          }else{
+              cout << m_exp[i]->executer();
+          }
       }
   }
 }

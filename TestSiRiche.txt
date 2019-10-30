@@ -1,0 +1,30 @@
+# Test du siRiche
+# Résultat attendu :
+# test1 = 2
+# test2 = 9
+# test3 = 7
+procedure principale()
+    test1 = 0;
+    si(test1 == 4)
+        test1 = 1;
+    sinonsi(test1 == 0)
+        test1 = 2;
+    finsi
+
+    test2 = 5;
+    si(test2 == 4)
+        test2 = 1;
+    sinonsi(test2 == 0)
+        test2 = 2;
+    sinon(test2 = 9;)
+    finsi
+
+    test3 = 7;
+    si(test3 == 4)
+        test3 = 1;
+    sinonsi(test3 == 0)
+        test3 = 2;
+    sinonsi(test3 == 8)
+        test3 = 0;
+    finsi
+finproc
