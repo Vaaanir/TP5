@@ -1,1 +1,11 @@
-
+# Test du lire
+# Résultat attendu :
+# Entrez la valeur de : a
+# 10
+# a = 10 
+# Entrez la valeur de : b
+# 8
+# b = 8
+procedure principale()
+    lire(a,b)
+finproc
