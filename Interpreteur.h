@@ -30,7 +30,11 @@ private:
     Noeud*  seqInst();	   //     <seqInst> ::= <inst> { <inst> }
     Noeud*  inst();	       //        <inst> ::= <affectation> ; | <instSi>
     Noeud*  affectation(); // <affectation> ::= <variable> = <expression> 
-    Noeud*  expression();  //  <expression> ::= <facteur> { <opBinaire> <facteur> }
+    Noeud*  expression();  //  <expression> ::= <expEt> {ou <expEt> }
+    Noeud* expEt(); // <expEt> ::= <expComp> {et <expComp> }
+    Noeud* expComp(); // <expComp> ::= <expAdd> {==|!=|<|<=|>|>= <expAdd> }
+    Noeud* expAdd(); // <expAdd> ::= <expMult> {+|-<expMult> }
+    Noeud* expMult(); // <expMult>::= <facteur> {*|/<facteur> }
     Noeud*  facteur();     //     <facteur> ::= <entier>  |  <variable>  |  - <facteur>  | non <facteur> | ( <expression> )
                            //   <opBinaire> ::= + | - | *  | / | < | > | <= | >= | == | != | et | ou
     Noeud*  instSi();      //      <instSi> ::= si ( <expression> ) <seqInst> finsi
@@ -72,7 +76,7 @@ private:
     Noeud * instLire();
     
 ////////////////////////////////////////////////////////
-    void tester (const string & symboleAttendu) const;   // Si symbole courant != symboleAttendu, on lève une exception
+    bool tester (const string & symboleAttendu) const;   // Si symbole courant != symboleAttendu, on lève une exception
     void testerEtAvancer(const string & symboleAttendu); // Si symbole courant != symboleAttendu, on lève une exception, sinon on avance
     void erreur (const string & mess) const;             // Lève une exception "contenant" le message mess
 };
