@@ -52,14 +52,15 @@ TESTFILES= \
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/tests/newsimpletest.o
+	${TESTDIR}/testclassTantQueunit.o \
+	${TESTDIR}/testrunnerTantQueunit.o
 
 # C Compiler Flags
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-lcppunit
+CXXFLAGS=-lcppunit
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -72,11 +73,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/m3105-tp5
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tp5
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/m3105-tp5: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tp5: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/m3105-tp5 ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/tp5 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/ArbreAbstrait.o: ArbreAbstrait.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -120,15 +121,21 @@ ${OBJECTDIR}/main.o: main.cpp
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/testclassTantQueunit.o ${TESTDIR}/testrunnerTantQueunit.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   `cppunit-config --libs`   
 
 
-${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
-	${MKDIR} -p ${TESTDIR}/tests
+${TESTDIR}/testclassTantQueunit.o: testclassTantQueunit.cpp 
+	${MKDIR} -p ${TESTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/testclassTantQueunit.o testclassTantQueunit.cpp
+
+
+${TESTDIR}/testrunnerTantQueunit.o: testrunnerTantQueunit.cpp 
+	${MKDIR} -p ${TESTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/testrunnerTantQueunit.o testrunnerTantQueunit.cpp
 
 
 ${OBJECTDIR}/ArbreAbstrait_nomain.o: ${OBJECTDIR}/ArbreAbstrait.o ArbreAbstrait.cpp 

@@ -1,0 +1,5 @@
+
+Apres la présentation du projet le 06 Novembre 2019, nous avons ajouté, modifié la liste ci-dessous : 
+
+-Test Unitaire Syntaxe
+
