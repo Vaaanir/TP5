@@ -15,14 +15,14 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
-      <itemPath>TestEcrire.txt</itemPath>
-      <itemPath>TestLire.txt</itemPath>
-      <itemPath>TestPour.txt</itemPath>
-      <itemPath>TestRepeter.txt</itemPath>
-      <itemPath>TestSiRiche.txt</itemPath>
-      <itemPath>TestTantQue.txt</itemPath>
       <itemPath>motsCles.txt</itemPath>
       <itemPath>programme.txt</itemPath>
+      <itemPath>test01-SiSinonSi.txt</itemPath>
+      <itemPath>test02-TantQue.txt</itemPath>
+      <itemPath>test03-Repeter.txt</itemPath>
+      <itemPath>test04-Pour.txt</itemPath>
+      <itemPath>test05-Ecrire.txt</itemPath>
+      <itemPath>test06-Lire.txt</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -92,18 +92,6 @@
       </item>
       <item path="TableSymboles.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="TestEcrire.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestLire.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestPour.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestRepeter.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestSiRiche.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestTantQue.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -124,6 +112,18 @@
       <item path="motsCles.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="programme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test01-SiSinonSi.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test02-TantQue.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test03-Repeter.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test04-Pour.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test05-Ecrire.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test06-Lire.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -174,18 +174,6 @@
       </item>
       <item path="TableSymboles.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="TestEcrire.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestLire.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestPour.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestRepeter.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestSiRiche.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="TestTantQue.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -206,6 +194,18 @@
       <item path="motsCles.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="programme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test01-SiSinonSi.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test02-TantQue.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test03-Repeter.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test04-Pour.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test05-Ecrire.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test06-Lire.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>

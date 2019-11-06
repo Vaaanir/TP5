@@ -4,14 +4,14 @@
 using namespace std;
 
 Interpreteur::Interpreteur(ifstream & fichier) :
-m_lecteur(fichier), m_table(), m_arbre(nullptr) {
+m_lecteur(fichier), m_table(), m_arbre(nullptr), m_nbErreurs(0) {
 }
 
 void Interpreteur::analyse() {
   m_arbre = programme(); // on lance l'analyse de la première règle
 }
 
-bool Interpreteur::tester(const string & symboleAttendu) const {
+void Interpreteur::tester(const string & symboleAttendu) const {
   // Teste si le symbole courant est égal au symboleAttendu... Si non, lève une exception
   static char messageWhat[256];
   if (m_lecteur.getSymbole() != symboleAttendu) {
@@ -19,18 +19,14 @@ bool Interpreteur::tester(const string & symboleAttendu) const {
             "Ligne %d, Colonne %d - Erreur de syntaxe - Symbole attendu : %s - Symbole trouvé : %s",
             m_lecteur.getLigne(), m_lecteur.getColonne(),
             symboleAttendu.c_str(), m_lecteur.getSymbole().getChaine().c_str());
-    cout << messageWhat << endl;
-    return false;
-  }else{
-      return true;
-  }
+    throw SyntaxeException(messageWhat);
+}
 }
 
 void Interpreteur::testerEtAvancer(const string & symboleAttendu) {
   // Teste si le symbole courant est égal au symboleAttendu... Si oui, avance, Sinon, lève une exception
-  if(tester(symboleAttendu)){
-    m_lecteur.avancer();
-  }
+  tester(symboleAttendu);
+  m_lecteur.avancer();
 }
 
 void Interpreteur::erreur(const string & message) const {
@@ -40,11 +36,12 @@ void Interpreteur::erreur(const string & message) const {
   sprintf(messageWhat,
           "Ligne %d, Colonne %d - Erreur de syntaxe - %s - Symbole trouvé : %s",
           m_lecteur.getLigne(), m_lecteur.getColonne(), message.c_str(), m_lecteur.getSymbole().getChaine().c_str());
-  cout << messageWhat << endl;
+  throw SyntaxeException(messageWhat);
 }
 
 Noeud* Interpreteur::programme() {
   // <programme> ::= procedure principale() <seqInst> finproc FIN_FICHIER
+    try{
         testerEtAvancer("procedure");
         testerEtAvancer("principale");
         testerEtAvancer("(");
@@ -53,7 +50,12 @@ Noeud* Interpreteur::programme() {
         testerEtAvancer("finproc");
         tester("<FINDEFICHIER>");
         return sequence;
+    }catch (SyntaxeException & e){
+        cout << "SyntaxeError : " << e.what() << endl;
+        m_nbErreurs++;
+        return nullptr;
     }
+}
 
 Noeud* Interpreteur::seqInst() {
   // <seqInst> ::= <inst> { <inst> }
@@ -69,34 +71,47 @@ Noeud* Interpreteur::seqInst() {
 }
 
 Noeud* Interpreteur::inst() {
-  // <inst> ::= <affectation>  ; | <instSi> | <instTantQue>
-  if (m_lecteur.getSymbole() == "<VARIABLE>") {
-    Noeud *affect = affectation();
-    testerEtAvancer(";");
-    return affect;
-  }
-  else if (m_lecteur.getSymbole() == "si"){
-    return instSiRiche();
-  }
-  else if(m_lecteur.getSymbole() == "tantque"){
-   return instTantQue();
-  }
-  else if(m_lecteur.getSymbole() == "repeter"){
-      return instRepeter();
-  }  
-  else if(m_lecteur.getSymbole() == "pour"){
-      return instPour();
-  }
-  else if(m_lecteur.getSymbole() == "ecrire"){
-      return instEcrire();
-  }
-  else if(m_lecteur.getSymbole() == "lire"){
-      return instLire();
-  }
-  // Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
-  else {
-      erreur("Instruction incorrecte");
-      return nullptr;
+  // <inst> ::= <affectation>  ; | <instSiRiche> | <instTantQue> | <instRepeter> | <instPour> | <instEcrire> | <instLire>
+  try{
+    if (m_lecteur.getSymbole() == "<VARIABLE>") {
+      Noeud *affect = affectation();
+      testerEtAvancer(";");
+      return affect;
+    }
+    else if (m_lecteur.getSymbole() == "si"){
+      return instSiRiche();
+    }
+    else if(m_lecteur.getSymbole() == "tantque"){
+     return instTantQue();
+    }
+    else if(m_lecteur.getSymbole() == "repeter"){
+        return instRepeter();
+    }  
+    else if(m_lecteur.getSymbole() == "pour"){
+        return instPour();
+    }
+    else if(m_lecteur.getSymbole() == "ecrire"){
+        return instEcrire();
+    }
+    else if(m_lecteur.getSymbole() == "lire"){
+        return instLire();
+    }
+    // Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
+    else erreur("Instruction incorrecte");
+    }catch(SyntaxeException & e){
+        cout << "SyntaxeError : " << e.what() << endl;
+        m_nbErreurs++;
+        while (m_lecteur.getSymbole() != "<VARIABLE>" &&
+                m_lecteur.getSymbole() != "si" &&
+                m_lecteur.getSymbole() != "tantque" &&
+                m_lecteur.getSymbole() != "repeter" &&
+                m_lecteur.getSymbole() != "pour" &&
+                m_lecteur.getSymbole() != "ecrire" &&
+                m_lecteur.getSymbole() != "lire" &&
+                m_lecteur.getSymbole() != "<FINDEFICHIER>") {
+            m_lecteur.avancer();
+        }
+        return nullptr;
     }
 }
 

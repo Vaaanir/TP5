@@ -43,7 +43,7 @@ int NoeudAffectation::executer() {
 }
 
 void NoeudAffectation::traduitEnCPP(ostream &cout, unsigned int indentation) const{
-    cout << setw(4*indentation)<<"int "<<((SymboleValue*)m_variable)->getChaine();
+    cout << setw(4*indentation)<< "" << "int "<<((SymboleValue*)m_variable)->getChaine();
     cout<<"=";
     if((typeid(*m_expression) == typeid(SymboleValue))){
         cout<<((SymboleValue*)m_expression)->getChaine();
@@ -54,7 +54,7 @@ void NoeudAffectation::traduitEnCPP(ostream &cout, unsigned int indentation) con
 }
 
 void NoeudAffectation::traduitEnCPPPour(ostream &cout, unsigned int indentation) const{
-    cout << setw(4*indentation)<<"int "<<((SymboleValue*)m_variable)->getChaine();
+    cout << setw(4*indentation) << "int "<<((SymboleValue*)m_variable)->getChaine();
     cout<<"=";
     if((typeid(*m_expression) == typeid(SymboleValue))){
         cout<<((SymboleValue*)m_expression)->getChaine();
