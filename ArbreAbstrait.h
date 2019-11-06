@@ -21,6 +21,7 @@ class Noeud {
     virtual int  executer() =0 ; // Méthode pure (non implémentée) qui rend la classe abstraite
     virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
     virtual void traduitEnCPP(ostream &cout, unsigned int indentation) const { throw OperationInterditeException(); }
+    virtual void traduitEnCPPPour(ostream &cout, unsigned int indentation) const { throw OperationInterditeException(); }
     virtual ~Noeud() {} // Présence d'un destructeur virtuel conseillée dans les classes abstraites
 };
 
@@ -47,6 +48,7 @@ class NoeudAffectation : public Noeud {
     ~NoeudAffectation() {}   // A cause du destructeur virtuel de la classe Noeud
     int executer() override; // Exécute (évalue) l'expression et affecte sa valeur à la variable
     void traduitEnCPP(ostream &cout, unsigned int indentation) const override;
+    void traduitEnCPPPour(ostream &cout, unsigned int indentation) const override;
   private:
     Noeud* m_variable;
     Noeud* m_expression;
@@ -104,7 +106,7 @@ class NoeudInstSiRiche : public Noeud{
 public : 
     NoeudInstSiRiche(vector<Noeud *> v_conditions, vector<Noeud *> v_sequences, vector<Noeud *> v_sequencesinon);
     ~NoeudInstSiRiche(){}
-    virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
+    virtual void ajoute(Noeud* instruction)override { throw OperationInterditeException(); }
     void traduitEnCPP(ostream &cout, unsigned int indentation) const override;
     int executer() override;
 private :

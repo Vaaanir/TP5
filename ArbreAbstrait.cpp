@@ -26,6 +26,8 @@ void NoeudSeqInst::traduitEnCPP(ostream &cout, unsigned int indentation) const{
         m_instructions[i]->traduitEnCPP(cout,indentation);
     }
 }
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudAffectation
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,16 +43,27 @@ int NoeudAffectation::executer() {
 }
 
 void NoeudAffectation::traduitEnCPP(ostream &cout, unsigned int indentation) const{
-    cout << setw(4*indentation)<<""<<((SymboleValue*)m_variable)->getChaine();
+    cout << setw(4*indentation)<<"int "<<((SymboleValue*)m_variable)->getChaine();
     cout<<"=";
     if((typeid(*m_expression) == typeid(SymboleValue))){
         cout<<((SymboleValue*)m_expression)->getChaine();
     }else{
         m_expression->traduitEnCPP(cout,0);
-    }
-    
+    } 
     cout<<";"<<endl; 
 }
+
+void NoeudAffectation::traduitEnCPPPour(ostream &cout, unsigned int indentation) const{
+    cout << setw(4*indentation)<<"int "<<((SymboleValue*)m_variable)->getChaine();
+    cout<<"=";
+    if((typeid(*m_expression) == typeid(SymboleValue))){
+        cout<<((SymboleValue*)m_expression)->getChaine();
+    }else{
+        m_expression->traduitEnCPP(cout,0);
+    } 
+    cout<<";"; 
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudOperateurBinaire
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +144,7 @@ void NoeudInstTantQue::traduitEnCPP(ostream &cout, unsigned int indentation) con
 
 }
 
+
 ///////////////////////////////////////////////////////////
 ////////////// //////////Repeter/////////////////////////
 ///////////////////////////////////////////////////////////
@@ -207,12 +221,13 @@ int NoeudInstPour::executer(){
    //on "affecte" les affections puis elles seront exécutées.
     if(m_affectationGauche != NULL && m_affectationDroite != NULL){
         m_affectationGauche->executer();
-        m_affectationDroite->executer();
         if(m_condition->executer()){
             while(m_condition->executer()){
-                m_sequence->executer();             
+                m_sequence->executer(); 
+                m_affectationDroite->executer();
             }
-        }  
+        }
+        
          //Si nous n'avons pas les affectations(i =0 et i = i+1) alors
         //on execute l'instruction tant que la condition est vraie
     }else if(m_affectationGauche == NULL && m_affectationDroite == NULL){
@@ -220,12 +235,52 @@ int NoeudInstPour::executer(){
             while(m_condition->executer()){
                 m_sequence->executer();
             }
+    }else if(m_affectationGauche == NULL && m_affectationDroite != NULL){
+        if(m_condition->executer()){
+            while(m_condition->executer()){
+               m_affectationDroite->executer();
+                m_sequence->executer();    
+            }
+        }
+    }else if(m_affectationGauche != NULL && m_affectationDroite == NULL){
+        m_affectationGauche->executer();
+        if(m_condition->executer()){        
+            while(m_condition->executer()){
+                m_sequence->executer();    
+            }
+        }
     }
     return 0;
 }
 void NoeudInstPour::traduitEnCPP(ostream &cout, unsigned int indentation) const{
     cout << setw(4*indentation) << "" << "for("; // Ecrit "for(" avec un décalage de 4*indentation espaces
+     if(m_affectationGauche != NULL && m_affectationDroite != NULL){
+        m_affectationGauche->traduitEnCPPPour(cout,0); 
+        m_condition->traduitEnCPP(cout,0); 
+        cout<<";";
+        m_affectationDroite->traduitEnCPPPour(cout,0);
+        cout<<") { \n";
+    }else if(m_affectationGauche == NULL && m_affectationDroite != NULL){
+        m_condition->traduitEnCPP(cout,0); 
+        cout<<";";
+        m_affectationDroite->traduitEnCPPPour(cout,0); 
+        cout<<") { \n";
+   
+    }else if(m_affectationGauche != NULL && m_affectationDroite == NULL){
+        m_affectationGauche->traduitEnCPPPour(cout,0); 
+        m_condition->traduitEnCPP(cout,0); 
+         cout<<";";
+        cout<<") { \n";
+    }
+     else{
+         cout<<";";
+         m_condition->traduitEnCPP(cout,0);
+         cout<<";";
+         cout<<") { \n";
+    }
     
+     m_sequence->traduitEnCPP(cout,indentation+2);
+    cout<< setw(indentation+3) << "" << "}" <<endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,1 +1,33 @@
+# Test du pour
+#resultat attendu :
+# Premier test : b = 5 et a = 41
+#2eme Test : test2 = 5
+#3eme Test : test3 = 5;
+#4eme TEST : test4 = 81;
+procedure principale()
+    b = 1;
+    a = 1;
+    i = 1;
+    pour(;i<5;)
+        i = i+1;
+        b = b+1;
+        a = a+10;
+    finpour 
 
+    test2 = 1;
+    pour(j=1;j<5;j = j+1)
+        test2 = test2+1;
+    finpour
+
+    test3 = 1;
+    j = 1;
+    pour(;j<5; j= j+1)
+        test3 = test3 +1;
+    finpour
+
+    test4 = 1;
+    pour(k = 1;k<5;)
+        test4 = test4 +20;
+        k = k+1;
+    finpour
+finproc

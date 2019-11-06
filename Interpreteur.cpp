@@ -207,6 +207,9 @@ Noeud* Interpreteur::instSi() {
 }
 
 void Interpreteur::traduitEnCPP(ostream &cout, unsigned int indentation) const{
+    cout<<"#include <iostream> \n";
+    cout<<"using namespace std \n";
+    cout<<"\n";
     cout<< setw(4*indentation) << "" << "int main(){" << endl;
     /////////////////////////////////////////////////////////
 
@@ -318,8 +321,7 @@ Noeud* Interpreteur::instRepeter(){
     condition = expression();
     testerEtAvancer(";");
     if(m_lecteur.getSymbole() == "<VARIABLE>"){
-        affectationdroite = affectation();
-        testerEtAvancer(";");
+        affectationdroite = affectation(); 
     }
     testerEtAvancer(")");
     instruction = seqInst();
