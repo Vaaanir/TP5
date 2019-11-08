@@ -1,14 +1,14 @@
-///*
-/* To change this license header, choose License Headers in Project Properties.
+/*
+ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 /* 
- * File:   testrunnerTantQueunit.cpp
+ * File:   testrunnertantque.cpp
  * Author: berguert
  * 
- * Created on Nov 6, 2019, 4:27:54 PM
+ * Created on Nov 7, 2019, 10:17:20 AM
  */
 
 // CppUnit site http://sourceforge.net/projects/cppunit/files

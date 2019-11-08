@@ -174,4 +174,24 @@ public :
 private :
     vector <Noeud*> v_instructions;
 };
+
+
+
+
+///////////////////////////////////////////////////////////
+////////////// //////////Selon/////////////////////////
+///////////////////////////////////////////////////////////
+
+class NoeudInstSelon : public Noeud{
+public : 
+    NoeudInstSelon(vector <Noeud *> instructions,vector <Noeud *> sequences,vector <Noeud*>v_instructionDefault, Noeud* condition);
+    ~NoeudInstSelon(){}
+    int executer()override;
+    void traduitEnCPP(ostream &cout, unsigned int indentation) const override;
+private : 
+    vector <Noeud*> v_instruction;
+    vector <Noeud*> v_sequences;
+    vector <Noeud *> v_instructionDefault;
+    Noeud* m_condition;
+};
 #endif /* ARBREABSTRAIT_H */

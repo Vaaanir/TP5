@@ -21,6 +21,7 @@ class testclassTantQueunit : public CPPUNIT_NS::TestFixture {
 
    // CPPUNIT_TEST(testNoeudInstTantQue);
     CPPUNIT_TEST(testSyntaxe);
+    CPPUNIT_TEST(testValeur);
     //CPPUNIT_TEST(testExecuter);
     //CPPUNIT_TEST(testTraduitEnCPP);
 
@@ -35,6 +36,7 @@ public:
 private:
     void testNoeudInstTantQue();
     void testSyntaxe();
+    void testValeur();
     void testExecuter();
     void testTraduitEnCPP();
 

@@ -64,7 +64,7 @@ Noeud* Interpreteur::seqInst() {
     sequence->ajoute(inst());
 
   } while (m_lecteur.getSymbole() == "<VARIABLE>" || m_lecteur.getSymbole() == "si" || m_lecteur.getSymbole() == "tantque" 
-          || m_lecteur.getSymbole() == "repeter" ||m_lecteur.getSymbole() == "pour" || m_lecteur.getSymbole() == "ecrire" || m_lecteur.getSymbole() == "lire");
+          || m_lecteur.getSymbole() == "repeter" ||m_lecteur.getSymbole() == "pour" || m_lecteur.getSymbole() == "ecrire" || m_lecteur.getSymbole() == "lire" || m_lecteur.getSymbole() == "selon");
   // Tant que le symbole courant est un début possible d'instruction...
   // Il faut compléter cette condition chaque fois qu'on rajoute une nouvelle instruction
   return sequence;
@@ -95,6 +95,8 @@ Noeud* Interpreteur::inst() {
     }
     else if(m_lecteur.getSymbole() == "lire"){
         return instLire();
+    }else if(m_lecteur.getSymbole() == "selon"){
+        return instSelon();
     }
     // Compléter les alternatives chaque fois qu'on rajoute une nouvelle instruction
     else erreur("Instruction incorrecte");
@@ -108,11 +110,13 @@ Noeud* Interpreteur::inst() {
                 m_lecteur.getSymbole() != "pour" &&
                 m_lecteur.getSymbole() != "ecrire" &&
                 m_lecteur.getSymbole() != "lire" &&
+                m_lecteur.getSymbole() != "selon" &&
                 m_lecteur.getSymbole() != "<FINDEFICHIER>") {
             m_lecteur.avancer();
         }
         return nullptr;
     }
+  return 0;
 }
 
 Noeud* Interpreteur::affectation() {
@@ -390,4 +394,42 @@ Noeud* Interpreteur::instRepeter(){
     }
      testerEtAvancer(")");
      return new NoeudInstLire(v_variables);
+ }
+ 
+ 
+ ///////////////////////////////////////////////////////////
+////////////// //////////Selon/////////////////////////
+///////////////////////////////////////////////////////////
+
+ Noeud *Interpreteur::instSelon(){
+    vector <Noeud *> v_sequences;
+    vector <Noeud *> v_instructions;
+    vector <Noeud*> v_instructionDefault;
+    Noeud* condition = NULL;
+    
+    testerEtAvancer("selon");
+    testerEtAvancer("(");
+    condition = expression();
+    testerEtAvancer(")");
+    while(m_lecteur.getSymbole() == "case"){
+        testerEtAvancer("case");
+        testerEtAvancer(":");
+        Noeud * instruction = seqInst();
+        if(instruction != nullptr){
+            v_sequences.push_back(instruction);
+        }    
+    }
+    if(m_lecteur.getSymbole() == "default"){
+        testerEtAvancer("default");
+        testerEtAvancer(":");
+        Noeud * instruction = seqInst();
+        if(instruction != nullptr){
+            v_instructionDefault.push_back(instruction);
+        }
+    }
+    
+
+    
+    testerEtAvancer("finselon");
+    return 0;
  }

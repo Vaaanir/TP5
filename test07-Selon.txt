@@ -1,0 +1,12 @@
+# Test du Selon
+# Résultat attendu :
+#
+#
+procedure principale()
+i = 1;
+a = 0;
+    selon(i)
+    case: a = 15;
+        default: a = 1;
+    finselon
+finproc

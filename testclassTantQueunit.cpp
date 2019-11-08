@@ -31,7 +31,8 @@ void testclassTantQueunit::tearDown() {
 }
 
 
-
+//On verifie que la syntaxe est belle est bien correcte lorsque nous avons ecrit le programme
+//comme il se le devait
 
 void testclassTantQueunit::testSyntaxe(){
     string nomFich = "test02-TantQue.txt";
@@ -41,14 +42,36 @@ void testclassTantQueunit::testSyntaxe(){
         Interpreteur interpreteur(fichier);
         interpreteur.analyse();
         if (!interpreteur.getNbErreurs()) {
-            if (interpreteur.getArbre() != nullptr) interpreteur.getArbre()->executer();
+            if (interpreteur.getArbre() != nullptr){
+                CPPUNIT_ASSERT_NO_THROW(interpreteur.getArbre()->executer());
+            }
             // Et on vérifie qu'il a fonctionné en regardant comment il a modifié la table des symboles
             interpreteur.traduitEnCPP(cout,0);
-            CPPUNIT_ASSERT(true);
+            
         } else
             cout << interpreteur.getNbErreurs() << " erreur(s) de syntaxe" << endl;
     } catch (InterpreteurException & e) {
-        CPPUNIT_ASSERT(false);
+        cout<< e.what();
+    }
+}
+
+//On verifie que les valeurs attendu sont les bonnes valeurs récupérées.
+
+
+void testclassTantQueunit::testValeur(){
+    string nomFich = "test02-TantQue.txt";
+    ifstream fichier(nomFich.c_str());
+    try{
+        if(fichier.fail()) throw FichierException();
+            Interpreteur interpreteur(fichier);
+            interpreteur.analyse();
+        if(!interpreteur.getNbErreurs()){
+            if(interpreteur.getArbre() != nullptr){
+               CPPUNIT_ASSERT_NO_THROW(interpreteur.getTable().getTaille());
+            }
+        }
+    }catch(InterpreteurException &e){
+        cout<< e.what();
     }
 }
 
